@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión Helios: El Enigma de las Manchas Solares</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        space: {
+                            900: '#0B0E14',
+                            800: '#151A23',
+                            700: '#1F2937',
+                        },
+                        solar: {
+                            500: '#F59E0B',
+                            400: '#FBBF24',
+                            glow: '#D97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B0E14;
+            color: #E5E7EB;
+        }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+        }
+        .sun-gradient {
+            background: radial-gradient(circle at center, #FBBF24 0%, #D97706 40%, transparent 70%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="fixed w-full z-50 bg-space-900/90 backdrop-blur-md border-b border-solar-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-2">
+                        <i class="fa-solid fa-sun text-solar-400 text-2xl"></i>
+                        <span class="font-bold text-xl tracking-wider text-white">HELIOS</span>
+                    </div>
+                </div>
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex items-center">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#inicio" data-i18n="nav_home" class="hover:text-solar-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
+                        <a href="#fundamentos" data-i18n="nav_fund" class="hover:text-solar-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Fundamentos</a>
+                        <a href="#laboratorio" data-i18n="nav_lab" class="hover:text-solar-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Laboratorio</a>
+                        <a href="#investigacion" data-i18n="nav_mist" class="hover:text-solar-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">El Misterio Solar</a>
+                        <a href="#recursos" data-i18n="nav_res" class="bg-solar-500/10 text-solar-400 border border-solar-500 hover:bg-solar-500 hover:text-space-900 px-4 py-2 rounded-md text-sm font-bold transition-all">Recursos</a>
+                    </div>
+                    
+                    <!-- Selector de Idiomas (Desktop) -->
+                    <div class="relative ml-6">
+                        <button id="lang-menu-btn" class="flex items-center gap-2 text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium focus:outline-none transition-colors border border-space-700 hover:border-space-500">
+                            <i class="fa-solid fa-earth-americas text-solar-400"></i>
+                            <span id="current-lang-text">🇪🇸 ES</span>
+                            <i class="fa-solid fa-chevron-down text-xs ml-1"></i>
+                        </button>
+                        <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-space-800 ring-1 ring-black ring-opacity-5 divide-y divide-space-700 border border-solar-500/30 overflow-hidden origin-top-right transition-all">
+                            <div class="py-1">
+                                <button onclick="changeLang('es')" class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-300 hover:bg-space-700 hover:text-white transition-colors"><span>🇪🇸</span> Español</button>
+                                <button onclick="changeLang('en')" class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-300 hover:bg-space-700 hover:text-white transition-colors"><span>🇬🇧</span> English</button>
+                                <button onclick="changeLang('fr')" class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-300 hover:bg-space-700 hover:text-white transition-colors"><span>🇫🇷</span> Français</button>
+                                <button onclick="changeLang('de')" class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-300 hover:bg-space-700 hover:text-white transition-colors"><span>🇩🇪</span> Deutsch</button>
+                                <button onclick="changeLang('pt')" class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-300 hover:bg-space-700 hover:text-white transition-colors"><span>🇵🇹</span> Português</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Botón Menú Mobile -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-space-800 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menú Mobile Desplegable -->
+        <div class="md:hidden hidden bg-space-800 border-b border-solar-500/30" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#inicio" data-i18n="nav_home" class="hover:text-solar-400 block px-3 py-2 rounded-md text-base font-medium">Inicio</a>
+                <a href="#fundamentos" data-i18n="nav_fund" class="hover:text-solar-400 block px-3 py-2 rounded-md text-base font-medium">Fundamentos</a>
+                <a href="#laboratorio" data-i18n="nav_lab" class="hover:text-solar-400 block px-3 py-2 rounded-md text-base font-medium">Laboratorio</a>
+                <a href="#investigacion" data-i18n="nav_mist" class="hover:text-solar-400 block px-3 py-2 rounded-md text-base font-medium">El Misterio Solar</a>
+                <a href="#recursos" data-i18n="nav_res" class="hover:text-solar-400 block px-3 py-2 rounded-md text-base font-medium">Recursos</a>
+            </div>
+            <!-- Banderas Mobile -->
+            <div class="px-4 py-4 border-t border-space-700 bg-space-900 flex justify-around">
+                <button onclick="changeLang('es')" class="text-2xl hover:scale-110 transition-transform" title="Español">🇪🇸</button>
+                <button onclick="changeLang('en')" class="text-2xl hover:scale-110 transition-transform" title="English">🇬🇧</button>
+                <button onclick="changeLang('fr')" class="text-2xl hover:scale-110 transition-transform" title="Français">🇫🇷</button>
+                <button onclick="changeLang('de')" class="text-2xl hover:scale-110 transition-transform" title="Deutsch">🇩🇪</button>
+                <button onclick="changeLang('pt')" class="text-2xl hover:scale-110 transition-transform" title="Português">🇵🇹</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="inicio" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col items-center justify-center min-h-screen text-center px-4">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] sun-gradient opacity-20 blur-3xl -z-10 pointer-events-none"></div>
+            
+            <h1 data-i18n="hero_title" class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6">
+                Descifra el Latido <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-solar-400 to-red-500 text-glow">De Nuestra Estrella</span>
+            </h1>
+            <p data-i18n="hero_desc" class="mt-4 max-w-2xl text-xl text-gray-300 mx-auto mb-10">
+                El Sol parece una esfera de luz tranquila, pero su superficie esconde violentas tormentas magnéticas. Tu misión es analizar datos satelitales reales para revelar un patrón oculto.
+            </p>
+            <div class="flex gap-4 justify-center">
+                <a href="#fundamentos" data-i18n="hero_btn" class="bg-solar-500 hover:bg-solar-400 text-space-900 font-bold py-3 px-8 rounded-full transition-transform hover:scale-105 shadow-lg shadow-solar-500/30">
+                    Comenzar Misión
+                </a>
+            </div>
+        </section>
+
+        <section id="fundamentos" class="py-20 bg-space-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 data-i18n="fund_title" class="text-3xl font-bold text-solar-400 mb-4">¿Qué estamos buscando?</h2>
+                    <p data-i18n="fund_desc" class="max-w-3xl mx-auto text-gray-400">Antes de analizar los datos, necesitas saber identificar a nuestro sujeto de estudio: las manchas solares.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="bg-space-900 p-8 rounded-2xl border border-space-700 shadow-xl">
+                        <h3 class="text-2xl font-semibold mb-4 flex items-center gap-3">
+                            <i class="fa-solid fa-fire-flame-curved text-orange-500"></i> <span data-i18n="spot_title">Manchas Solares</span>
+                        </h3>
+                        <p data-i18n="spot_desc1" class="text-gray-300 mb-4">
+                            Son regiones en la "superficie" del Sol (fotosfera) que se ven oscuras. ¿Por qué? No es que estén frías, ¡siguen a miles de grados! Pero son ligeramente más frías que su entorno debido a <strong>campos magnéticos extremadamente intensos</strong> que bloquean el calor que sube desde el interior.
+                        </p>
+                        <p data-i18n="spot_desc2" class="text-gray-300">
+                            Rara vez aparecen solas. Como los polos de un imán, suelen aparecer en <strong>grupos</strong>.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-space-900 p-8 rounded-2xl border border-space-700 shadow-xl">
+                        <h3 class="text-2xl font-semibold mb-4 flex items-center gap-3">
+                            <i class="fa-solid fa-calculator text-blue-400"></i> <span data-i18n="wolf_title">El Código Wolf (R)</span>
+                        </h3>
+                        <p data-i18n="wolf_desc" class="text-gray-300 mb-4">
+                            Para medir la actividad solar no basta con contar manchas sueltas. Los científicos usan el <strong>Número de Wolf (R)</strong>, una fórmula matemática que le da peso a los grupos.
+                        </p>
+                        <div class="bg-black/50 p-6 rounded-lg text-center border border-solar-500/20 font-mono text-xl mb-4">
+                            <span class="text-white">R</span> = <span class="text-solar-400">10</span><span class="text-blue-400">g</span> + <span class="text-red-400">f</span>
+                        </div>
+                        <ul class="text-sm text-gray-400 space-y-2">
+                            <li data-i18n="wolf_g"><strong class="text-blue-400">g</strong> = Número de <em>grupos</em> de manchas.</li>
+                            <li data-i18n="wolf_f"><strong class="text-red-400">f</strong> = Número total de manchas <em>individuales</em>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="laboratorio" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12">
+                    <h2 data-i18n="lab_title" class="text-3xl font-bold text-white mb-2">Laboratorio de Observación</h2>
+                    <p data-i18n="lab_desc" class="text-gray-400">Utiliza la herramienta a continuación para analizar imágenes satelitales y registrar el Número de Wolf.</p>
+                </div>
+
+                <div class="bg-space-800 rounded-2xl border border-solar-500/50 overflow-hidden shadow-2xl shadow-solar-500/10 min-h-[500px] flex flex-col relative">
+                    <div class="bg-space-900 border-b border-space-700 px-4 py-3 flex justify-between items-center">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500 tracking-widest">SOHO/SDO DATA TERMINAL</span>
+                    </div>
+
+                    <div class="p-1 flex-grow flex items-center justify-center bg-[#0a0a0a]">
+                        <!-- ENLACE HERRAMIENTA DE PRÁCTICA -->
+                        
+                        <div class="text-center p-8 border-2 border-dashed border-gray-600 rounded-xl">
+                            <i class="fa-solid fa-satellite text-4xl text-gray-500 mb-4"></i>
+                            <h3 data-i18n="lab_wait" class="text-xl font-bold text-gray-400">Módulo de Conteo en Espera</h3>
+                            <p data-i18n="lab_wait_desc" class="text-gray-500 mt-2 text-sm max-w-md mx-auto">
+                                Aquí se integrará la interfaz interactiva para cargar imágenes solares y realizar el cálculo de g, f y R.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="investigacion" class="py-20 bg-space-800 border-t border-space-700">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 data-i18n="mist_title" class="text-3xl font-bold text-solar-400 mb-4">El Gran Misterio Científico</h2>
+                    <p data-i18n="mist_desc" class="max-w-3xl mx-auto text-gray-300 text-lg">
+                        Calcular un Número de Wolf de un solo día es interesante, pero la verdadera ciencia requiere ver el panorama completo. La misión de la clase es juntar piezas de un rompecabezas temporal.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="bg-space-900 p-6 rounded-xl border-l-4 border-solar-500">
+                        <i class="fa-solid fa-magnifying-glass-chart text-2xl text-solar-400 mb-4"></i>
+                        <h4 data-i18n="q1_title" class="text-xl font-bold text-white mb-2">Pista 1: El paso del tiempo</h4>
+                        <p data-i18n="q1_desc" class="text-gray-400 text-sm">
+                            Si tomas fotos del sol hoy, dentro de un mes, y dentro de 3 años... ¿El Número de Wolf será siempre similar? Investiga datos de diferentes años. ¿Notan algún cambio extremo?
+                        </p>
+                    </div>
+                    <div class="bg-space-900 p-6 rounded-xl border-l-4 border-blue-500">
+                        <i class="fa-solid fa-chart-line text-2xl text-blue-400 mb-4"></i>
+                        <h4 data-i18n="q2_title" class="text-xl font-bold text-white mb-2">El Objetivo: Construir la Gráfica</h4>
+                        <p data-i18n="q2_desc" class="text-gray-400 text-sm">
+                            Cada estudiante recolectará datos de períodos diferentes. Nuestro objetivo es unir todos los Números de Wolf de la clase en un gran gráfico histórico. Solo entonces revelaremos el comportamiento del Sol.
+                        </p>
+                    </div>
+                    <div class="bg-space-900 p-6 rounded-xl border-l-4 border-red-500">
+                        <i class="fa-solid fa-question text-2xl text-red-400 mb-4"></i>
+                        <h4 data-i18n="q3_title" class="text-xl font-bold text-white mb-2">Pista 2: La década</h4>
+                        <p data-i18n="q3_desc" class="text-gray-400 text-sm">
+                            Se dice que nuestra estrella tiene "estaciones" que no duran meses, sino años. Aproximadamente a la edad de 11 años cambiaste de niño a adolescente. Curiosamente, ese número es clave para el Sol. ¿Por qué será?
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p data-i18n="mist_quote" class="text-gray-400 italic">"Los datos guardan las respuestas, pero sólo una mente curiosa puede hacer las preguntas correctas."</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="recursos" class="py-20 relative">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <i class="fa-solid fa-book-journal-whills text-5xl text-solar-500 mb-6 block"></i>
+                <h2 data-i18n="res_title" class="text-3xl font-bold text-white mb-6">Materiales de la Misión</h2>
+                <p data-i18n="res_desc" class="text-gray-300 mb-10">
+                    Descarga tu bitácora espacial. Contiene la hoja de ruta para clasificar las manchas, registrar los cálculos diarios y las instrucciones para enviar tus resultados a la base de datos de la clase.
+                </p>
+                
+                <!-- ENLACE PDF INSTRUCCIONES -->
+                <a href="#" data-i18n="res_btn" class="inline-flex items-center gap-3 bg-transparent border-2 border-solar-400 text-solar-400 hover:bg-solar-400 hover:text-space-900 font-bold py-4 px-8 rounded-lg transition-all text-lg group">
+                    <i class="fa-solid fa-file-pdf group-hover:-translate-y-1 transition-transform"></i>
+                    Descargar Guía de Observación (PDF)
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-space-900 border-t border-space-800 py-10 mt-10">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p data-i18n="footer_1">Proyecto Misión Helios - Estudio del Ciclo Solar</p>
+            <p data-i18n="footer_2" class="mt-2">Desarrollado para mentes curiosas. Los datos reales nos conectan con el cosmos.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Diccionario de Traducciones
+        const i18n = {
+            es: {
+                nav_home: "Inicio", nav_fund: "Fundamentos", nav_lab: "Laboratorio", nav_mist: "El Misterio Solar", nav_res: "Recursos",
+                hero_title: "Descifra el Latido <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-solar-400 to-red-500 text-glow'>De Nuestra Estrella</span>",
+                hero_desc: "El Sol parece una esfera de luz tranquila, pero su superficie esconde violentas tormentas magnéticas. Tu misión es analizar datos satelitales reales para revelar un patrón oculto.",
+                hero_btn: "Comenzar Misión",
+                fund_title: "¿Qué estamos buscando?",
+                fund_desc: "Antes de analizar los datos, necesitas saber identificar a nuestro sujeto de estudio: las manchas solares.",
+                spot_title: "Manchas Solares",
+                spot_desc1: "Son regiones en la 'superficie' del Sol (fotosfera) que se ven oscuras. ¿Por qué? No es que estén frías, ¡siguen a miles de grados! Pero son ligeramente más frías que su entorno debido a <strong>campos magnéticos extremadamente intensos</strong> que bloquean el calor que sube desde el interior.",
+                spot_desc2: "Rara vez aparecen solas. Como los polos de un imán, suelen aparecer en <strong>grupos</strong>.",
+                wolf_title: "El Código Wolf (R)",
+                wolf_desc: "Para medir la actividad solar no basta con contar manchas sueltas. Los científicos usan el <strong>Número de Wolf (R)</strong>, una fórmula matemática que le da peso a los grupos.",
+                wolf_g: "<strong class='text-blue-400'>g</strong> = Número de <em>grupos</em> de manchas.",
+                wolf_f: "<strong class='text-red-400'>f</strong> = Número total de manchas <em>individuales</em>.",
+                lab_title: "Laboratorio de Observación",
+                lab_desc: "Utiliza la herramienta a continuación para analizar imágenes satelitales y registrar el Número de Wolf.",
+                lab_wait: "Módulo de Conteo en Espera",
+                lab_wait_desc: "Aquí se integrará la interfaz interactiva para cargar imágenes solares y realizar el cálculo de g, f y R.",
+                mist_title: "El Gran Misterio Científico",
+                mist_desc: "Calcular un Número de Wolf de un solo día es interesante, pero la verdadera ciencia requiere ver el panorama completo. La misión de la clase es juntar piezas de un rompecabezas temporal.",
+                q1_title: "Pista 1: El paso del tiempo",
+                q1_desc: "Si tomas fotos del sol hoy, dentro de un mes, y dentro de 3 años... ¿El Número de Wolf será siempre similar? Investiga datos de diferentes años. ¿Notan algún cambio extremo?",
+                q2_title: "El Objetivo: Construir la Gráfica",
+                q2_desc: "Cada estudiante recolectará datos de períodos diferentes. Nuestro objetivo es unir todos los Números de Wolf de la clase en un gran gráfico histórico. Solo entonces revelaremos el comportamiento del Sol.",
+                q3_title: "Pista 2: La década",
+                q3_desc: "Se dice que nuestra estrella tiene 'estaciones' que no duran meses, sino años. Aproximadamente a la edad de 11 años cambiaste de niño a adolescente. Curiosamente, ese número es clave para el Sol. ¿Por qué será?",
+                mist_quote: "\"Los datos guardan las respuestas, pero sólo una mente curiosa puede hacer las preguntas correctas.\"",
+                res_title: "Materiales de la Misión",
+                res_desc: "Descarga tu bitácora espacial. Contiene la hoja de ruta para clasificar las manchas, registrar los cálculos diarios y las instrucciones para enviar tus resultados a la base de datos de la clase.",
+                res_btn: '<i class="fa-solid fa-file-pdf group-hover:-translate-y-1 transition-transform"></i> Descargar Guía de Observación (PDF)',
+                footer_1: "Proyecto Misión Helios - Estudio del Ciclo Solar",
+                footer_2: "Desarrollado para mentes curiosas. Los datos reales nos conectan con el cosmos."
+            },
+            en: {
+                nav_home: "Home", nav_fund: "Fundamentals", nav_lab: "Laboratory", nav_mist: "Solar Mystery", nav_res: "Resources",
+                hero_title: "Decode the Heartbeat <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-solar-400 to-red-500 text-glow'>Of Our Star</span>",
+                hero_desc: "The Sun looks like a quiet sphere of light, but its surface hides violent magnetic storms. Your mission is to analyze real satellite data to reveal a hidden pattern.",
+                hero_btn: "Start Mission",
+                fund_title: "What are we looking for?",
+                fund_desc: "Before analyzing the data, you need to know how to identify our study subject: sunspots.",
+                spot_title: "Sunspots",
+                spot_desc1: "They are regions on the Sun's 'surface' (photosphere) that look dark. Why? They're not cold, they are still at thousands of degrees! But they are slightly cooler than their surroundings due to <strong>extremely intense magnetic fields</strong> that block the heat rising from the interior.",
+                spot_desc2: "They rarely appear alone. Like the poles of a magnet, they usually appear in <strong>groups</strong>.",
+                wolf_title: "The Wolf Code (R)",
+                wolf_desc: "To measure solar activity, counting single spots is not enough. Scientists use the <strong>Wolf Number (R)</strong>, a mathematical formula that gives weight to groups.",
+                wolf_g: "<strong class='text-blue-400'>g</strong> = Number of sunspot <em>groups</em>.",
+                wolf_f: "<strong class='text-red-400'>f</strong> = Total number of <em>individual</em> spots.",
+                lab_title: "Observation Laboratory",
+                lab_desc: "Use the tool below to analyze satellite images and record the Wolf Number.",
+                lab_wait: "Counting Module in Standby",
+                lab_wait_desc: "The interactive interface to load solar images and calculate g, f, and R will be integrated here.",
+                mist_title: "The Great Scientific Mystery",
+                mist_desc: "Calculating a Wolf Number for a single day is interesting, but real science requires seeing the big picture. The class's mission is to piece together a temporal puzzle.",
+                q1_title: "Clue 1: The passage of time",
+                q1_desc: "If you take photos of the sun today, in a month, and in 3 years... Will the Wolf Number always be similar? Investigate data from different years. Do you notice any extreme changes?",
+                q2_title: "The Goal: Build the Graph",
+                q2_desc: "Each student will collect data from different periods. Our goal is to combine all the Wolf Numbers from the class into a large historical graph. Only then will we reveal the Sun's behavior.",
+                q3_title: "Clue 2: The decade",
+                q3_desc: "It is said that our star has 'seasons' that don't last months, but years. At about 11 years old, you changed from a child to a teenager. Curiously, that number is key for the Sun. Why?",
+                mist_quote: "\"Data holds the answers, but only a curious mind can ask the right questions.\"",
+                res_title: "Mission Materials",
+                res_desc: "Download your space logbook. It contains the roadmap to classify spots, record daily calculations, and instructions to send your results to the class database.",
+                res_btn: '<i class="fa-solid fa-file-pdf group-hover:-translate-y-1 transition-transform"></i> Download Observation Guide (PDF)',
+                footer_1: "Helios Mission Project - Solar Cycle Study",
+                footer_2: "Developed for curious minds. Real data connects us with the cosmos."
+            },
+            fr: {
+                nav_home: "Accueil", nav_fund: "Fondamentaux", nav_lab: "Laboratoire", nav_mist: "Mystère Solaire", nav_res: "Ressources",
+                hero_title: "Décryptez le Battement <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-solar-400 to-red-500 text-glow'>De Notre Étoile</span>",
+                hero_desc: "Le Soleil ressemble à une sphère de lumière tranquille, mais sa surface cache de violentes tempêtes magnétiques. Votre mission : analyser de vraies données satellites pour révéler un motif caché.",
+                hero_btn: "Commencer la Mission",
+                fund_title: "Que cherchons-nous ?",
+                fund_desc: "Avant d'analyser les données, vous devez savoir identifier notre sujet d'étude : les taches solaires.",
+                spot_title: "Taches Solaires",
+                spot_desc1: "Ce sont des régions sur la 'surface' du Soleil (photosphère) qui paraissent sombres. Pourquoi ? Elles ne sont pas froides (des milliers de degrés !) mais légèrement plus froides que leur environnement à cause de <strong>champs magnétiques très intenses</strong> qui bloquent la chaleur.",
+                spot_desc2: "Elles apparaissent rarement seules. Comme les pôles d'un aimant, elles se présentent souvent en <strong>groupes</strong>.",
+                wolf_title: "Le Code de Wolf (R)",
+                wolf_desc: "Pour mesurer l'activité solaire, compter les taches isolées ne suffit pas. Les scientifiques utilisent le <strong>Nombre de Wolf (R)</strong>, une formule mathématique qui donne du poids aux groupes.",
+                wolf_g: "<strong class='text-blue-400'>g</strong> = Nombre de <em>groupes</em> de taches.",
+                wolf_f: "<strong class='text-red-400'>f</strong> = Nombre total de taches <em>individuelles</em>.",
+                lab_title: "Laboratoire d'Observation",
+                lab_desc: "Utilisez l'outil ci-dessous pour analyser des images satellites et enregistrer le Nombre de Wolf.",
+                lab_wait: "Module de Comptage en Attente",
+                lab_wait_desc: "L'interface interactive pour charger les images solaires et calculer g, f et R sera intégrée ici.",
+                mist_title: "Le Grand Mystère Scientifique",
+                mist_desc: "Calculer un Nombre de Wolf pour un seul jour est intéressant, mais la vraie science nécessite une vue d'ensemble. La mission de la classe est de reconstituer un puzzle temporel.",
+                q1_title: "Indice 1 : Le temps qui passe",
+                q1_desc: "Si vous prenez des photos du Soleil aujourd'hui, dans un mois et dans 3 ans... Le Nombre de Wolf sera-t-il toujours similaire ? Cherchez des données de différentes années.",
+                q2_title: "L'Objectif : Construire le Graphique",
+                q2_desc: "Chaque élève collectera des données de périodes différentes. Notre objectif est de réunir tous les Nombres de Wolf de la classe dans un grand graphique historique.",
+                q3_title: "Indice 2 : La décennie",
+                q3_desc: "On dit que notre étoile a des 'saisons' qui ne durent pas des mois, mais des années. Vers 11 ans, vous êtes passé de l'enfance à l'adolescence. Curieusement, ce nombre est clé pour le Soleil.",
+                mist_quote: "\"Les données détiennent les réponses, mais seule une curiosité d'esprit peut poser les bonnes questions.\"",
+                res_title: "Matériel de Mission",
+                res_desc: "Téléchargez votre journal de bord spatial. Il contient la feuille de route pour classer les taches, enregistrer les calculs et les instructions pour envoyer vos résultats.",
+                res_btn: '<i class="fa-solid fa-file-pdf group-hover:-translate-y-1 transition-transform"></i> Télécharger le Guide d\'Observation (PDF)',
+                footer_1: "Projet Mission Hélios - Étude du Cycle Solaire",
+                footer_2: "Développé pour les esprits curieux. Les données réelles nous connectent au cosmos."
+            },
+            de: {
+                nav_home: "Startseite", nav_fund: "Grundlagen", nav_lab: "Labor", nav_mist: "Sonnenrätsel", nav_res: "Ressourcen",
+                hero_title: "Entschlüssele den Herzschlag <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-solar-400 to-red-500 text-glow'>Unseres Sterns</span>",
+                hero_desc: "Die Sonne wirkt wie eine ruhige Lichtkugel, aber ihre Oberfläche verbirgt heftige Magnetstürme. Deine Mission: Analysiere echte Satellitendaten, um ein verborgenes Muster zu enthüllen.",
+                hero_btn: "Mission Starten",
+                fund_title: "Wonach suchen wir?",
+                fund_desc: "Bevor wir die Daten analysieren, musst du lernen, unser Untersuchungsobjekt zu identifizieren: die Sonnenflecken.",
+                spot_title: "Sonnenflecken",
+                spot_desc1: "Es sind Regionen auf der 'Oberfläche' der Sonne (Photosphäre), die dunkel erscheinen. Warum? Sie sind nicht kalt, sie sind immer noch tausende Grad heiß! Aber sie sind etwas kühler als ihre Umgebung aufgrund <strong>extrem starker Magnetfelder</strong>, die die aufsteigende Hitze blockieren.",
+                spot_desc2: "Sie treten selten allein auf. Wie die Pole eines Magneten erscheinen sie meistens in <strong>Gruppen</strong>.",
+                wolf_title: "Der Wolf-Code (R)",
+                wolf_desc: "Um die Sonnenaktivität zu messen, reicht es nicht aus, einzelne Flecken zu zählen. Wissenschaftler verwenden die <strong>Wolfsche Relativzahl (R)</strong>, eine Formel, die Gruppen Gewicht verleiht.",
+                wolf_g: "<strong class='text-blue-400'>g</strong> = Anzahl der Sonnenflecken-<em>Gruppen</em>.",
+                wolf_f: "<strong class='text-red-400'>f</strong> = Gesamtzahl der <em>einzelnen</em> Flecken.",
+                lab_title: "Beobachtungslabor",
+                lab_desc: "Nutze das untenstehende Werkzeug, um Satellitenbilder zu analysieren und die Wolf-Zahl aufzuzeichnen.",
+                lab_wait: "Zählmodul im Standby",
+                lab_wait_desc: "Die interaktive Schnittstelle zum Laden von Sonnenbildern und Berechnen von g, f und R wird hier integriert.",
+                mist_title: "Das Große Wissenschaftliche Rätsel",
+                mist_desc: "Eine Wolf-Zahl für einen einzelnen Tag zu berechnen, ist interessant, aber echte Wissenschaft erfordert den Blick auf das große Ganze. Die Mission der Klasse ist es, ein zeitliches Puzzle zusammenzusetzen.",
+                q1_title: "Hinweis 1: Der Lauf der Zeit",
+                q1_desc: "Wenn du heute, in einem Monat und in 3 Jahren Fotos machst... Wird die Wolf-Zahl immer ähnlich sein? Untersuche Daten aus verschiedenen Jahren.",
+                q2_title: "Das Ziel: Die Grafik erstellen",
+                q2_desc: "Jeder Schüler sammelt Daten aus verschiedenen Zeiträumen. Unser Ziel ist es, alle Wolf-Zahlen der Klasse in einem großen historischen Diagramm zusammenzufassen.",
+                q3_title: "Hinweis 2: Das Jahrzehnt",
+                q3_desc: "Man sagt, unser Stern hat 'Jahreszeiten', die nicht Monate, sondern Jahre dauern. Mit etwa 11 Jahren wurdest du vom Kind zum Teenager. Kurioserweise ist diese Zahl für die Sonne entscheidend.",
+                mist_quote: "\"Daten bergen die Antworten, aber nur ein neugieriger Geist kann die richtigen Fragen stellen.\"",
+                res_title: "Missionsmaterialien",
+                res_desc: "Lade dein Weltraum-Logbuch herunter. Es enthält den Fahrplan zur Klassifizierung der Flecken, zur Aufzeichnung täglicher Berechnungen und Anweisungen.",
+                res_btn: '<i class="fa-solid fa-file-pdf group-hover:-translate-y-1 transition-transform"></i> Beobachtungsleitfaden (PDF)',
+                footer_1: "Projekt Mission Helios - Untersuchung des Sonnenzyklus",
+                footer_2: "Entwickelt für neugierige Köpfe. Reale Daten verbinden uns mit dem Kosmos."
+            },
+            pt: {
+                nav_home: "Início", nav_fund: "Fundamentos", nav_lab: "Laboratório", nav_mist: "Mistério Solar", nav_res: "Recursos",
+                hero_title: "Decifre o Pulso <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-solar-400 to-red-500 text-glow'>Da Nossa Estrela</span>",
+                hero_desc: "O Sol parece uma esfera de luz tranquila, mas a sua superfície esconde violentas tempestades magnéticas. A sua missão é analisar dados reais de satélites para revelar um padrão oculto.",
+                hero_btn: "Iniciar Missão",
+                fund_title: "O que estamos procurando?",
+                fund_desc: "Antes de analisar os dados, você precisa saber identificar nosso sujeito de estudo: as manchas solares.",
+                spot_title: "Manchas Solares",
+                spot_desc1: "São regiões na 'superfície' do Sol (fotosfera) que parecem escuras. Por quê? Não que estejam frias, continuam a milhares de graus! Mas são um pouco mais frias que o entorno devido a <strong>campos magnéticos extremamente intensos</strong> que bloqueiam o calor.",
+                spot_desc2: "Raramente aparecem sozinhas. Como os polos de um ímã, geralmente surgem em <strong>grupos</strong>.",
+                wolf_title: "O Código Wolf (R)",
+                wolf_desc: "Para medir a atividade solar não basta contar manchas isoladas. Os cientistas usam o <strong>Número de Wolf (R)</strong>, uma fórmula matemática que dá peso aos grupos.",
+                wolf_g: "<strong class='text-blue-400'>g</strong> = Número de <em>grupos</em> de manchas.",
+                wolf_f: "<strong class='text-red-400'>f</strong> = Número total de manchas <em>individuais</em>.",
+                lab_title: "Laboratório de Observação",
+                lab_desc: "Use a ferramenta abaixo para analisar imagens de satélite e registrar o Número de Wolf.",
+                lab_wait: "Módulo de Contagem em Espera",
+                lab_wait_desc: "Aqui será integrada a interface interativa para carregar imagens solares e realizar o cálculo de g, f e R.",
+                mist_title: "O Grande Mistério Científico",
+                mist_desc: "Calcular um Número de Wolf de um único dia é interessante, mas a verdadeira ciência requer ver o panorama geral. A missão da turma é montar um quebra-cabeça temporal.",
+                q1_title: "Pista 1: A passagem do tempo",
+                q1_desc: "Se você tirar fotos do sol hoje, daqui a um mês e daqui a 3 anos... O Número de Wolf será sempre parecido? Investigue dados de anos diferentes.",
+                q2_title: "O Objetivo: Construir o Gráfico",
+                q2_desc: "Cada aluno coletará dados de períodos diferentes. Nosso objetivo é unir todos os Números de Wolf da turma em um grande gráfico histórico.",
+                q3_title: "Pista 2: A década",
+                q3_desc: "Diz-se que nossa estrela tem 'estações' que não duram meses, mas anos. Com cerca de 11 anos você passou de criança para adolescente. Curiosamente, esse número é fundamental para o Sol. Por que será?",
+                mist_quote: "\"Os dados guardam as respostas, mas só uma mente curiosa pode fazer as perguntas corretas.\"",
+                res_title: "Materiais da Missão",
+                res_desc: "Baixe seu diário de bordo espacial. Ele contém o roteiro para classificar as manchas, registrar os cálculos diários e as instruções para enviar seus resultados.",
+                res_btn: '<i class="fa-solid fa-file-pdf group-hover:-translate-y-1 transition-transform"></i> Baixar Guia de Observação (PDF)',
+                footer_1: "Projeto Missão Helios - Estudo do Ciclo Solar",
+                footer_2: "Desenvolvido para mentes curiosas. Os dados reais conectam-nos ao cosmos."
+            }
+        };
+
+        // Lógica de menús y traducción
+        const langMenuBtn = document.getElementById('lang-menu-btn');
+        const langDropdown = document.getElementById('lang-dropdown');
+        const currentLangText = document.getElementById('current-lang-text');
+
+        // Toggle dropdown de escritorio
+        if(langMenuBtn) {
+            langMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown.classList.toggle('hidden');
+            });
+        }
+
+        // Cierra dropdowns al hacer clic fuera
+        document.addEventListener('click', () => {
+            if (langDropdown && !langDropdown.classList.contains('hidden')) {
+                langDropdown.classList.add('hidden');
+            }
+        });
+
+        // Función principal para cambiar de idioma
+        function changeLang(lang) {
+            // Actualizar textos en la página
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+
+            // Actualizar indicador del botón de escritorio
+            const flags = { es: '🇪🇸 ES', en: '🇬🇧 EN', fr: '🇫🇷 FR', de: '🇩🇪 DE', pt: '🇵🇹 PT' };
+            if(currentLangText) currentLangText.innerText = flags[lang];
+
+            // Cerrar menú móvil si está abierto
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        // Script original de menú móvil
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Cierra el menú al hacer clic en un enlace (mobile)
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
